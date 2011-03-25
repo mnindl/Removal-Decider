@@ -1,0 +1,16 @@
+{
+  "drive_rest_time_in_sec" : "900",
+  "shipping_time_for_max_3_rooms_in_sec" : "21600",
+  "shipping_time_for_more_3_rooms_in_sec" : "32400",
+  "room_limit" : "3", 
+  "boxes_per_room" : "15",
+  "boxes_per_member" : "4",
+  "price_per_box" : "1.50",
+  "small_lkw_num_boxes" : "44",
+  "fuel_price_liter" : "1.45",
+  "average_fuel_consum_1_km_t3" : "0.1",
+  "average_fuel_consum_1_km_t7" : "0.15",
+  "helper" : "2",
+  "cat_price_1_helper" : "2.5"
+}
+   

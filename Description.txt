@@ -1,0 +1,80 @@
+Beschreibung der Funktionsweise und der Konfiguration des Umzugsentscheidungshelfer
+
+Welche Dateien sind nötig: 
+  removal_decider.html ---> Das Markup
+  removal_decider.css ---> das Styling
+  removal_decider_images Verzeichnis --> Die statischen Bilder
+  removal_decider.js --> Das Javascript welches die Funktionalität beinhaltet
+  lkw_rent_prices.json --> Hier werden die LKW Mietpreise gepflegt.
+  stop_area_prices.json --> Hier sind die 30 größten Städte Deutschlands mit den jeweiligen Halteverbotszonenpreisen aufgelistet
+  removal_decider_config.json --> die Konfiguration der statischen Daten welche nicht in der LKWMatrix.json oder in der stopAreaPrices.json stehen
+  
+Beschreibung der Funktion:
+  Es gibt 4 Formularfelder, aus denen ein Kostenvoranschlag für einen Umzug in Eigenverantwortung errechnet wird.
+  Ziel ist es, den Benutzer klarzumachen, das ein solcher Umzug auch Geld kostet.
+  
+  
+Konfiguration der Ánwendung:
+  Grundsätzlich kann man alles konfigurieren, ausser die Texte. Dafür sind die .json Dateien s.o. zuständig.
+  
+  - lkw_rent_prices.json : 
+    Beispiel Eintrag
+    
+    "k10" : {
+      "rent" : {
+        "t3" : "58",
+        "t7" : "101"
+      }
+    }
+    
+    k10 = bis kilometer 10
+    kostet ein lkw t3 58€ und ein lkw t7 101€
+    
+  -stop_area_prices.json : 
+     Beispiel Eintrag
+     
+     "Hamburg" : "88",
+     
+     Hamburg = Eine Halteverbotszone in Hamburg kostet 88 €
+
+  - removal_decider_config.json
+    Alle möglichen statischen Daten werden hier konfiguriert.
+    
+    Die aktuellen Daten (Stand 25.3.2011 info: Zeiten werden hier in Sekunden angegeben, da die google map api auch nur Sekunden liefert) 
+      "drive_rest_time_in_sec" : "900", --> Hier wird die Pause der Fahrt gesetzt
+      "room_limit" : "3", --> ab 3 Raumen brauch man für das Be-Entladen mehr Zeit. Das kann hier geändert werden 
+      "shipping_time_for_max_3_rooms_in_sec" : "21600", --> Hier wird die Zeit zum Be-Entladen bei bis zu 3 Räumen gesetzt
+      "shipping_time_for_more_3_rooms_in_sec" : "32400",--> Hier wird die Zeit zum Be-Entladen bei mehr als 3 Räumen gesetzt
+      "boxes_per_room" : "15", --> Die Anzahl an Umzugskisten für einen Raum
+      "boxes_per_member" : "4", --> Die Anzahl an Umzugskisten pro Person 
+      "price_per_box" : "1.50", --> Der Preis pro Umzugskiste
+      "small_lkw_num_boxes" : "44", --> Das ist die Grenze zum 7,5T LKW. Bei mehr als 44 Kisten wird ein 7,5T LKW benötigt
+      "fuel_price_liter" : "1.45", --> Das ist der Dieselpreis pro Liter
+      "average_fuel_consum_1_km_t3" : "0.1", --> Das ist der Verbrauch eine 3,5T LKW pro Kilometer 
+      "average_fuel_consum_1_km_t7" : "0.15",--> Das ist der Verbrauch eine 7,5T LKW pro Kilometer
+      "helper" : "2", ---> Das ist die Anzahl an Personen die beim Umzug helfen
+      "cat_price_1_helper" : "2.5"  --> Das ist der VErpflegungspreis pro Person in einer Stunde
+      
+
+Die Berechnungsgrundlagen sind: 
+  Distanz ---> google map gibt die Distance in Meter zurück. Das wird umgewandelt in km
+  Umzugsdauer  --->  Fahrtzeit (google map gibt das in Sekunden) 
+                     + BE-Entladezeit in sekunden (je nach Anzahl der Räume) --> zum schluss wird alles in Stunden
+                     umgerechnet
+  LKW Miet Distanz --> da die LKW Miete nach Lilometer gestaffelt ist muss die Distanz auf die nächsthöhere Kilometerangabe
+                       wie sie in der lkw_rent_prices.json definiert ist, aufgerundet werden.
+  Anzahl der Kartons --> anzahl der Zimmer * 15 Kisten  + anzahl der umziehenden Personen * 4 Kisten
+  Preis der Kartons -->  Preis pro Kartons = 1.50 € * anzahl der Kartons 
+  benötigte LKW Größe --->  Anzahl der Kartons kleiner 44 = 3,5T LKW ansonsten 7,5T LKW
+  die LKW Miete  --> anhand der LKW Miet Distanz und der LKW Größe wird der Preis aus der lkw_rent_prices.json gelesen
+  der Dieselpreis -->  die Distanz * den verbrauch des lkws pro km
+  der gesamte Halteverbotspreis --> aus google map werden Startort und Zielort ermittelt und die jeweiligen Preise aus
+                                    der stop_area_prices.json ermittelt und addiert.
+  Verpflegungskosten  ---> 2.50 € pro mitglied und helfer * Umzugsdauer 
+
+
+     
+
+ 
+  
+
