@@ -1,0 +1,144 @@
+.removal_decider {
+  width: 762px;
+  overflow: hidden;
+  border: 1px solid red;
+  color: #444444;
+  font: 10px/1.33333 Verdana,"DejaVu Sans",Arial,Helvetica,sans-serif;
+}
+.removal_decider .clear{ clear:both; float: none !important; margin: 0 !important; display:block; overflow:hidden; visibility:hidden; width: 0 !important; height: 0 !important }
+.removal_decider i {
+  font-style: normal;
+}
+.removal_decider .removal_decider_form {
+  padding: 20px;
+  background: url(images/Umzug.gif) no-repeat 620px 43px transparent;
+}
+.removal_decider .removal_decider_form h1 {
+  color: #0044CC;
+  margin-bottom: 10px;
+  font-weight: normal;
+  font: 2.2em Tahoma,Arial,sans-serif;
+}
+.removal_decider .removal_decider_form p {
+  font-size: 12px;
+}
+.removal_decider .removal_decider_form p.details {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 30px 0 10px 0;
+}
+.removal_decider .removal_decider_form label {
+  font-weight: bold;
+}
+.removal_decider .removal_decider_form div {
+  float: left;
+}
+.removal_decider .removal_decider_form input {
+  border: 1px solid #7F9DB9;
+  font-size: 11px;
+  padding: 2px 3px;
+}
+.removal_decider .removal_decider_form .start {
+  width: 160px;
+  background: url(images/arrow-right.jpg) no-repeat right top transparent;
+  padding-right: 60px;
+}
+.removal_decider .removal_decider_form .end {
+  width: 160px;
+  margin: 0 10px 0 7px;
+}
+.removal_decider .removal_decider_form .member {
+  width: 50px;
+  margin-right: 30px;
+}
+.removal_decider .removal_decider_form .member input {
+   width: 50px;
+}
+.removal_decider .removal_decider_form .rooms {
+  width: 50px;
+}
+.removal_decider .removal_decider_form .rooms input {
+   width: 50px;
+}
+.removal_decider .removal_decider_form .submit {
+  margin: 12px 0 0 24px;
+}
+.removal_decider .removal_decider_form .submit a {
+  background: url("images/sp_expose.png") no-repeat scroll 100% -789px transparent;
+  font-style: normal;
+  font-weight: bold;
+  display: inline-block;
+  text-decoration:none !important;  
+}
+.removal_decider .removal_decider_form .submit a span {
+  background: url("images/sp_expose.png") no-repeat scroll 0 -727px transparent;
+  padding:0 7px 2px 5px;
+  text-shadow:-1px -1px 0 #FF7500, 1px -1px 0 #FF7500, 0 -1px 0 #FF7500, 0 1px 1px #FF7500;
+  display: inline-block;
+  line-height: 19px !important;
+  margin-left: -2px;
+  color: #ffffff;
+  font-weight: bold;
+}
+.removal_decider .own_removal, 
+.removal_decider .company_removal {
+  border: 1px solid green;
+  float: left;
+  width: 350px;
+  margin: 40px 10px;
+  /*background: url(images/kassenzettel.gif) no-repeat 0px 0px transparent;*/
+  padding: 20px 0;
+}
+.removal_decider .own_removal h2,
+.removal_decider .own_removal p {
+  margin: 0 40px;
+} 
+.removal_decider .own_removal p {
+  margin-bottom: 5px;
+} 
+.removal_decider .own_removal h2 {
+  text-align: center;
+  font-size: 14px;
+}
+.removal_decider .own_removal #header_sum {
+  text-align: center;
+  margin: 20px 40px 5px 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px dashed #444444;
+  float: none;
+}
+.removal_decider .own_removal p {
+  float: left;
+}
+.removal_decider .own_removal p.own_removal_val {
+  float: right;
+}
+.removal_decider .own_removal p.no_val {
+  margin-bottom: 20px;
+}
+.removal_decider .own_removal #sum {
+  margin: 5px 40px;
+  padding: 10px 0;
+  border-top: 2px dashed #444444;
+  border-bottom: 2px dashed #444444;
+}
+.removal_decider .own_removal #sum p {
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.removal_decider ul.ui-autocomplete {
+  list-style: none;
+  background-color: #ffffff;
+  z-index: 2;
+  position: relative;
+  width: 300px;
+}
+.removal_decider ul.ui-autocomplete li {
+   border: 1px solid #7F9DB9;
+   padding: 5px;
+}
+.removal_decider ul.ui-autocomplete a {
+  cursor: pointer;
+}

@@ -1,27 +1,89 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Umzugsentscheider" />
+    <meta name="keywords" content="Umzug" />
+    <meta name="author" content="Michael Nindl" />
+    <meta charset="UTF-8" />
+    <link href="reset.css" type="text/css" rel="stylesheet"/>
+    <link href="removal_decider.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" src="removal_decider.js"></script>
     <title>Umzugs Entscheider</title>
   </head>
-  <body>
-    <h1>Was möchte ich überhaupt? Umzugsfirma oder selber umziehen ?</h1>
-    <p>Mit wenigen Schritten sind Sie dieser Entscheidung sehr viel näher</p>
-    <form id="removal_form" action="" method="" accept-charset="utf-8">
-      <label>Von Wo nach Wo ziehen Sie um? </label>
-      <input type="text" value="von Plz bzw Ort" id="start">
-      <input type="text" value="nach Plz bzw Ort" id="target">
-      <br/>
-      <label>Wieviele Personen ziehen um? </label>
-      <input type="text" value="Anzahl der Personen" id="member">
-      <label>Wie groß ist Ihre derzeitige Wohnung?</label>
-      <input type="text" value="Anzahl der Zimmer" id="rooms">
-      <p><input type="submit" value="berechnen" /></p>
-    </form>
+  <body class="removal_decider">
+    <div class="removal_decider_form">
+      <h1>Was möchte ich: Umzugsfirma beauftragen oder selber umziehen ?</h1>
+      <p>Mit wenigen Eingaben sind Sie dieser Entscheidung sehr viel näher:</p>
+      <p class="details">Geben Sie hier Details zu Ihrem Umzugsvorhaben ein</p>
+      <form id="removal_form" action="#">
+        <div class="start">
+          <label for="start">Von</label>
+          <input type="text" value="von Plz bzw Ort" id="start" class="address"/>
+        </div>
+        <div class="end">
+          <label for="end">Nach</label>
+          <input type="text" value="nach Plz bzw Ort" id="end" class="address"/>
+        </div>
+        <div class="member">
+          <label for="member">Personen</label>
+          <input type="text" value="Anzahl der Personen" id="member">
+        </div>
+        <div class="rooms">
+          <label for="rooms">Zimmer</label>
+          <input type="text" value="Anzahl der Zimmer" id="rooms">
+        </div>
+        <div class="submit">
+          <a title="Berechnen" id="submit" href="#">
+            <span>Berechnen</span>
+          </a>  
+        </div>
+        <div class="clear">&nbsp;</div>
+      </form>
+    </div>
     <div class="own_removal">
+      <h2>Umzug in Eigenregie</h2>
+      <p id="header_sum">Gesamtkosten: <span>ca. <i>xxx</i> Euro</span></p>
+      <p>&nbsp;</p>
+      <p class="own_removal_val no_val">EUR</p>
+      <div class="clear">&nbsp;</div>
+      <p>LKW</p>
+      <p class="own_removal_val" id="lkw_rent">xxx</p>
+      <div class="clear">&nbsp;</div>
+      <p>Größe <i id="lkw_size">xxx</i></p>
+      <div class="clear">&nbsp;</div>
+      <p>Krafstoff</p>
+      <p class="own_removal_val" id="fuel_price">xxx</p>
+      <div class="clear">&nbsp;</div>
+      <p>Distanz <i id="orig_distance">xxx</i>km <i id="mileage">xxx</i>/100km</p>
+      <div class="clear">&nbsp;</div>
+      <p>Halteverbotszonen</p>
+      <p class="own_removal_val" id="stop_area_price">xxx</p>
+      <div class="clear">&nbsp;</div>
+      <p>2 x 25m beidseitig</p>
+      <div class="clear">&nbsp;</div>
+      <p>Kartons</p>
+      <p class="own_removal_val" id="price_boxes">xxx</p>
+      <div class="clear">&nbsp;</div>
+      <p id="num_boxes">Anzahl der Kartons:<i>xxx</i></p>
+      <div class="clear">&nbsp;</div>
+      <p>Verpflegung</p>
+      <p class="own_removal_val" id="catering_price">xxx</p>
+      <div class="clear">&nbsp;</div>
+      <p>Anzahl der Pers. + 2 Helfer * 2,50 Euro/h</p>
+      <div class="clear">&nbsp;</div>
+      <div id="sum">
+        <p>SUMME</p>
+        <p class="own_removal_val">EURO <span>xxx</span></p>
+        <div class="clear">&nbsp;</div>
+      </div>
+    </div>
+    <div class="company_removal">
+      &nbsp;
+    </div>
+    <div class="clear">&nbsp;</div>
+
+   <!-- <div class="own_removal">
       <p id="orig_distance"></p>
       <p id="removal_time"></p>
       <p id="lkw_rent_distance"></p>
@@ -33,6 +95,6 @@
       <p id="stop_area_price"></p>
       <p id="catering_price"></p>
       <p id="sum"></p>
-    </div>
+    </div>-->
   </body>
 </html>
