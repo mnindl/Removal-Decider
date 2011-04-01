@@ -7,9 +7,10 @@ google.setOnLoadCallback(function() {
   member = null;
   var directions_service = new google.maps.DirectionsService();
   var geocoder = new google.maps.Geocoder();
+  var $error_box = $(".removal_decider .error_box");
   // input click
   $("#removal_form input:text").click( function () {
-    $(this).val("").unbind("click");
+    $(this).removeClass("error").val("");
   });
   $("#removal_form .submit").click(function() {
     calculateRemoval();
@@ -42,13 +43,20 @@ google.setOnLoadCallback(function() {
     };
     member = parseInt($("#member").val());
     rooms = parseInt($("#rooms").val());
-    if (isNaN(member) || member.length == 0 || isNaN(rooms) || rooms.length == 0  ) {
-      alert("Bitte geben Sie die richtige Anzahl der Personen und die richtige Anzahl der Räume an");
+    if ( isNaN(member) || member.length == 0 ) {
+      $(".removal_decider .removal_decider_form input#member").addClass("error");
+      $error_box.find("p").html("Bitte geben Sie die richtige Anzahl der Personen an").end().removeClass("hidden");
+      return false;
+    } else if ( isNaN(rooms) || rooms.length == 0 ) {
+      $(".removal_decider .removal_decider_form input#rooms").addClass("error");
+      $error_box.find("p").html("Bitte geben Sie die richtige Anzahl der Räume an").end().removeClass("hidden");
       return false;
     }
     console.log("-----------> member "+member+" romms "+rooms);
     directions_service.route(route_request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
+        $error_box.addClass("hidden");
+        $(".removal_decider .removal_decider_form").find("#start").removeClass("error").end().find("#end").removeClass("error");
         console.log(response);
         var route = response.routes[0].legs[0];
         console.log(route.start_address);
@@ -109,8 +117,12 @@ google.setOnLoadCallback(function() {
         $("#header_sum span i").html(sum);
         
         
+      } else if (status == google.maps.DirectionsStatus.NOT_FOUND) {
+        $(".removal_decider .removal_decider_form").find("#start").addClass("error").end().find("#end").addClass("error");
+        $error_box.find("p").html("Geben Sie bitte einen gültigen Startort und ein gültigen Zielort ein.").end().removeClass("hidden");
       } else {
-        alert("Einer der eingegbenen Orte wurde nicht gefunden.Sie müssen einen gültigen Ort + Adresse oder Plz angeben");
+        $(".removal_decider .removal_decider_form").find("#start").addClass("error").end().find("#end").addClass("error");
+        $error_box.find("p").html("Leider liefert Google Maps kein Ergebnis zu ihrer Routenanfrage").end().removeClass("hidden");
       }
     });
   };

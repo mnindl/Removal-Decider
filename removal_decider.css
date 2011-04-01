@@ -5,7 +5,11 @@
   color: #444444;
   font: 10px/1.33333 Verdana,"DejaVu Sans",Arial,Helvetica,sans-serif;
 }
+.removal_decider ul {
+  list-style: none;
+}
 .removal_decider .clear{ clear:both; float: none !important; margin: 0 !important; display:block; overflow:hidden; visibility:hidden; width: 0 !important; height: 0 !important }
+.removal_decider .hidden { visibility: hidden; height: 0px; overflow: hidden; }
 .removal_decider i {
   font-style: normal;
 }
@@ -23,7 +27,7 @@
   font-size: 12px;
 }
 .removal_decider .removal_decider_form p.details {
-  font-size: 15px;
+  font-size: 1.4em;
   font-weight: bold;
   margin: 30px 0 10px 0;
 }
@@ -37,6 +41,11 @@
   border: 1px solid #7F9DB9;
   font-size: 11px;
   padding: 2px 3px;
+  margin-top: 3px;
+}
+.removal_decider .removal_decider_form input.error {
+  border: 1px solid #FF0000;
+  background: none;
 }
 .removal_decider .removal_decider_form .start {
   width: 160px;
@@ -61,18 +70,21 @@
    width: 50px;
 }
 .removal_decider .removal_decider_form .submit {
-  margin: 12px 0 0 24px;
+  margin: 15px 0 0 79px;
 }
-.removal_decider .removal_decider_form .submit a {
+.removal_decider .submit a,
+.removal_decider .company_removal_link a {
   background: url("images/sp_expose.png") no-repeat scroll 100% -789px transparent;
   font-style: normal;
   font-weight: bold;
   display: inline-block;
   text-decoration:none !important;  
 }
-.removal_decider .removal_decider_form .submit a span {
+.removal_decider .submit a span,
+.removal_decider .company_removal_link a span {
+  font-size: 1.2em;
   background: url("images/sp_expose.png") no-repeat scroll 0 -727px transparent;
-  padding:0 7px 2px 5px;
+  padding:0 15px 2px 15px;
   text-shadow:-1px -1px 0 #FF7500, 1px -1px 0 #FF7500, 0 -1px 0 #FF7500, 0 1px 1px #FF7500;
   display: inline-block;
   line-height: 19px !important;
@@ -88,6 +100,7 @@
   margin: 40px 10px;
   /*background: url(images/kassenzettel.gif) no-repeat 0px 0px transparent;*/
   padding: 20px 0;
+  font-size: 1.2em;
 }
 .removal_decider .own_removal h2,
 .removal_decider .own_removal p {
@@ -123,13 +136,62 @@
   border-bottom: 2px dashed #444444;
 }
 .removal_decider .own_removal #sum p {
-  font-size: 12px;
+  font-size: 1.1em;
   font-weight: bold;
   margin: 0;
 }
+.removal_decider .company_removal {
+  padding-top: 150px;
+  height: 250px;
+}
+.removal_decider .company_removal p {
+  padding: 5px 0 5px 0;
+  border-top: 2px solid #B1B1B1;
+}
+.removal_decider .company_removal ul {
+  padding-bottom: 5px;
+  border-bottom: 2px solid #B1B1B1;
+}
+.removal_decider .company_removal p,
+.removal_decider .company_removal ul {
+  display: block;
+  margin: 0 10px;
+}
+.removal_decider .company_removal ul li {
+  padding-left: 10px;
+  background: url("images/sp_expose.png") no-repeat scroll -564px -1676px transparent;
+  padding-bottom: 2px;
+}
+.removal_decider .company_removal .company_removal_link {
+  margin: 5px 10px 0 51px;
+  padding: 0 0 7px 7px;
+  border-bottom: 2px solid #B1B1B1;
+}
+.removal_decider .error_box {
+  -webkit-border-radius: 4px 4px;
+  -moz-border-radius: 4px 4px;
+  -o-border-radius: 4px 4px;
+  -ms-border-radius: 4px 4px;
+  -khtml-border-radius: 4px 4px;
+  border-radius: 4px 4px;
+  background: url("images/hint_error.gif") no-repeat 8px 7px transparent;
+  border: 1px solid #FF0000;
+  -moz-box-shadow: 0 2px 5px #999999;
+  -webkit-box-shadow: 0 2px 5px #999999;
+  box-shadow: 0 2px 5px #999999;
+  padding: 7px 10px 7px 56px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  width: 400px;
+  margin: 0 auto;
+}
+.removal_decider .error h3 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FF0000;
+}
 
 .removal_decider ul.ui-autocomplete {
-  list-style: none;
   background-color: #ffffff;
   z-index: 2;
   position: relative;
