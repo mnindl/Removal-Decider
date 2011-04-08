@@ -2,6 +2,8 @@ google.load("jquery", "1.5.1");
 google.load("jqueryui", "1.8.11");
 google.load("maps", "3", {other_params: "sensor=false"});
 
+if (!window.REMOVAL) { var REMOVAL = {}; }
+
 google.setOnLoadCallback(function() {
   rooms = null;
   member = null;

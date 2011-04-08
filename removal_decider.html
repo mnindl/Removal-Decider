@@ -4,113 +4,112 @@
     <meta name="description" content="Umzugsentscheider" />
     <meta name="keywords" content="Umzug" />
     <meta name="author" content="Michael Nindl" />
-    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="reset.css" type="text/css" rel="stylesheet"/>
     <link href="removal_decider.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="removal_decider.js"></script>
+    <script type="text/javascript" src="namespace_removal_decider.js"></script>
     <title>Umzugs Entscheider</title>
   </head>
   <body class="removal_decider">
-    <div class="removal_decider_form">
-      <h1>Was möchte ich: Umzugsfirma beauftragen oder selber umziehen ?</h1>
-      <p>Mit wenigen Eingaben sind Sie dieser Entscheidung sehr viel näher:</p>
-      <p class="details">Geben Sie hier Details zu Ihrem Umzugsvorhaben ein</p>
-      <form id="removal_form" action="#">
-        <div class="start">
-          <label for="start">Von</label>
-          <input type="text" value="von Plz bzw Ort" id="start" class="address"/>
-        </div>
-        <div class="end">
-          <label for="end">Nach</label>
-          <input type="text" value="nach Plz bzw Ort" id="end" class="address"/>
-        </div>
-        <div class="member">
-          <label for="member">Personen</label>
-          <input type="text" value="Anzahl der Personen" id="member">
-        </div>
-        <div class="rooms">
-          <label for="rooms">Zimmer</label>
-          <input type="text" value="Anzahl der Zimmer" id="rooms">
-        </div>
-        <div class="submit">
-          <a title="Berechnen" id="submit" href="#">
-            <span>Berechnen</span>
-          </a>  
-        </div>
+    <div class="removal_decider_box">
+      <div class="removal_decider_form">
+        <h1>Was m&#246;chte ich: Umzugsfirma beauftragen oder selber umziehen ?</h1>
+        <p>Mit wenigen Eingaben sind Sie dieser Entscheidung sehr viel n&#228;her:</p>
+        <p class="details">Geben Sie hier Details zu Ihrem Umzugsvorhaben ein</p>
+        <form id="removal_form" action="#">
+          <div class="start">
+            <label for="start">Von</label>
+            <input type="text" value="von Plz bzw Ort" id="start" class="address" />
+          </div>
+          <div class="end">
+            <label for="end">Nach</label>
+            <input type="text" value="nach Plz bzw Ort" id="end" class="address" />
+          </div>
+          <div class="member">
+            <label for="member">Personen</label>
+            <input type="text" value="Anzahl der Personen" id="member" maxlength="2">
+          </div>
+          <div class="rooms">
+            <label for="rooms">Zimmer</label>
+            <input type="text" value="Anzahl der Zimmer" id="rooms" maxlength="2">
+          </div>
+          <div class="submit">
+            <a id="submit">
+              <span>Berechnen</span>
+            </a>  
+          </div>
+        </form>
+      </div>
+      <div class="error_box">
+        <h3>Bitte korrigieren Sie die rot markierten Angaben.</h3>
+        <p>&nbsp;</p>
+      </div>
+      <div class="own_removal">
+        <h2>Umzug in Eigenregie</h2>
+        <p id="header_text_member"></p>
+        <p id="header_text_distance"></p>
+        <p>&nbsp;</p>
+        <p class="own_removal_val no_val">EUR</p>
         <div class="clear">&nbsp;</div>
-      </form>
-    </div>
-    <div class="error_box hidden">
-      <h3>Bitte korrigieren Sie die rot markierten Angaben.</h3>
-      <p></p>
-    </div>
-    <div class="own_removal">
-      <h2>Umzug in Eigenregie</h2>
-      <p id="header_sum">Gesamtkosten: <span>ca. <i>xxx</i> Euro</span></p>
-      <p>&nbsp;</p>
-      <p class="own_removal_val no_val">EUR</p>
-      <div class="clear">&nbsp;</div>
-      <p>LKW</p>
-      <p class="own_removal_val" id="lkw_rent">xxx</p>
-      <div class="clear">&nbsp;</div>
-      <p>Größe <i id="lkw_size">xxx</i></p>
-      <div class="clear">&nbsp;</div>
-      <p>Krafstoff</p>
-      <p class="own_removal_val" id="fuel_price">xxx</p>
-      <div class="clear">&nbsp;</div>
-      <p>Distanz <i id="orig_distance">xxx</i>km <i id="mileage">xxx</i>/100km</p>
-      <div class="clear">&nbsp;</div>
-      <p>Halteverbotszonen</p>
-      <p class="own_removal_val" id="stop_area_price">xxx</p>
-      <div class="clear">&nbsp;</div>
-      <p>2 x 25m beidseitig</p>
-      <div class="clear">&nbsp;</div>
-      <p>Kartons</p>
-      <p class="own_removal_val" id="price_boxes">xxx</p>
-      <div class="clear">&nbsp;</div>
-      <p id="num_boxes">Anzahl der Kartons:<i>xxx</i></p>
-      <div class="clear">&nbsp;</div>
-      <p>Verpflegung</p>
-      <p class="own_removal_val" id="catering_price">xxx</p>
-      <div class="clear">&nbsp;</div>
-      <p>Anzahl der Pers. + 2 Helfer * 2,50 Euro/h</p>
-      <div class="clear">&nbsp;</div>
-      <div id="sum">
-        <p>SUMME</p>
-        <p class="own_removal_val">EURO <span>xxx</span></p>
+        <p>LKW</p>
+        <p class="own_removal_val" id="lkw_rent">xxx</p>
         <div class="clear">&nbsp;</div>
+        <small>Gr&#246;&#223;e: <i id="lkw_size">xxx</i> - &#248; Mietpreis bis <i id="lkw_rent_distance">xxx</i> km</small>
+        <p>Krafstoff</p>
+        <p class="own_removal_val" id="fuel_price">xxx</p>
+        <div class="clear">&nbsp;</div>
+        <small>Distanz: <i id="orig_distance">xxx</i> km - Verbrauch: ca.<i id="mileage">xxx</i>/100km</small>
+        <p>Halteverbotszonen</p>
+        <p class="own_removal_val" id="stop_area_price">xxx</p>
+        <div class="clear">&nbsp;</div>
+        <small id ="info_stop_area_price">Halteverbotszone f&#252;r <i>xxx</i></small>
+        <p>Kartons</p>
+        <p class="own_removal_val" id="price_boxes">xxx</p>
+        <div class="clear">&nbsp;</div>
+        <small id ="num_boxes">Anzahl der Kartons: <i>xxx</i></small>
+        <p>Verpflegung</p>
+        <p class="own_removal_val" id="catering_price">xxx</p>
+        <div class="clear">&nbsp;</div>
+        <small id ="info_catering_price">Verpflegung f&#252;r <i id="cat_member">xxx</i> Personen und f&#252;r <i id="cat_helper">xxx</i> Helfer</small>
+        <div id="sum">
+          <p>SUMME</p>
+          <p class="own_removal_val">EURO <span>xxx</span></p>
+        </div>
+      </div>
+      <div class="company_removal">
+        <div class="fake_datas hidden">
+          <small>Famillie Muster</small>
+          <small id="fake_datas_add_street"></small>
+          <small id="fake_datas_add_region"></small>
+          <p class="bill">Rechnung</p>
+          <div class="fake_datas_offer">
+            <small>Rechnungsnummer</small>
+            <small class="fake_datas_offer_val">123456789</small>
+            <div class="clear">&nbsp;</div>
+            <small>Rechnungsdatum</small>
+            <small class="fake_datas_offer_val" id="fake_datas_offer_val_date"></small>
+            <div class="clear">&nbsp;</div>
+          </div>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="offer hidden">
+          <p class="offer_text">Wir bieten Ihnen:</p>
+          <ul>
+            <li>guter Preis &#38; sicherer Transport</li>
+            <li>Rundum-Versicherung</li>
+            <li>individuelle Beratung</li>
+            <li>erfahrene Mitarbeiter</li>
+            <li>Planungssicherheit</li>
+          </ul>
+          <div class="company_removal_link">
+            <a href="http://www.immobilienscout24.de/de/umzug/umzugsunternehmen/umzug-easy.jsp">
+              <span>Kostenlose Angebote einholen</span>
+            </a>  
+          </div>
+          <div class="company_removal_link company_removal_link_line">&nbsp;</div>
+        </div>
       </div>
     </div>
-    <div class="company_removal">
-      <p>Wir bieten Ihnen:</p>
-      <ul>
-        <li>guter Preis & sicherer Transport</li>
-        <li>Rundum-Versicherung</li>
-        <li>individuelle Beratung</li>
-        <li>erfahrene Mitarbeiter</li>
-        <li>Planungssicherheit</li>
-      </ul>
-      <div class="company_removal_link">
-        <a title="to_company" href="#">
-          <span>Kostenlose Angebote einholen</span>
-        </a>  
-      </div>
-    </div>
-    <div class="clear">&nbsp;</div>
-
-   <!-- <div class="own_removal">
-      <p id="orig_distance"></p>
-      <p id="removal_time"></p>
-      <p id="lkw_rent_distance"></p>
-      <p id="num_boxes"></p>
-      <p id="price_boxes"></p>
-      <p id="lkw_size"></p>
-      <p id="lkw_rent"></p>
-      <p id="fuel_price"></p>
-      <p id="stop_area_price"></p>
-      <p id="catering_price"></p>
-      <p id="sum"></p>
-    </div>-->
   </body>
 </html>
