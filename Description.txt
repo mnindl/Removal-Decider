@@ -3,7 +3,7 @@ Beschreibung der Funktionsweise und der Konfiguration des Umzugsentscheidungshel
 Welche Dateien sind nötig: 
   removal_decider.html ---> Das Markup
   removal_decider.css ---> das Styling
-  removal_decider_images Verzeichnis --> Die statischen Bilder
+  images Verzeichnis --> Die statischen Bilder
   removal_decider.js --> Das Javascript welches die Funktionalität beinhaltet
   lkw_rent_prices.json --> Hier werden die LKW Mietpreise gepflegt.
   stop_area_prices.json --> Hier sind die 30 größten Städte Deutschlands mit den jeweiligen Halteverbotszonenpreisen aufgelistet

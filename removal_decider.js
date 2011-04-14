@@ -4,7 +4,7 @@ google.load("maps", "3", {other_params: "sensor=false"});
 
 if (!window.REMOVAL) { var REMOVAL = {}; }
 
-REMOVAL.removal_decider = ( function() {
+REMOVAL.removal_decider = ( function () {
   var rooms = null;
   var member = null;
   var startLoc = null;
@@ -14,45 +14,36 @@ REMOVAL.removal_decider = ( function() {
   var company_removal_address_street = null;
   var company_removal_address_region = null;
 
-  function init () {
+  function init() {
     var geocoder = new google.maps.Geocoder();
-    // input click
     $("#removal_form input:text").click( function () {
       $(this).removeClass("error").val("");
     });
-    $("#removal_form .submit").click(function(event) {
+    $("#removal_form .submit").click(function (event) {
       event.preventDefault();
       calculateRemoval();
     });
     
-    // autocomplete
     $(".address").autocomplete({
-      source: function(request, response) {
-         // gewichtung der geocodierung auf Deutschland setzen
-        var region_bound = new google.maps.LatLngBounds(new google.maps.LatLng(54.393352,10.415039 ),new google.maps.LatLng(14.332516,67.631836));
-        var location = region_bound.getCenter();
+      source: function (request, response) {
         var geocode_request = {
-          address: request.term + ', DE',
-          region: 'de',
-          language: 'de',
-          bounds: region_bound,
-          location: location
+          address: request.term
         };
         geocoder.geocode( geocode_request,
-          function(results, status) {
-            response($.map(results, function(item) {
-              if (item.formatted_address.search(/Bundesrepublik.+/) !== -1) {
+          function (results, status) {
+            response($.map(results, function (item) {
+              if (item.formatted_address.search(/Deutschland|Schweiz|Österreich/) !== -1) {
                 return {
                   label: item.formatted_address,
                   value: item.formatted_address
                 };
               }
-          }));
-        });
+            }));
+          });
       }
     });
   }
-  function calculateRemoval () {
+  function calculateRemoval() {
     var $error_box = $(".removal_decider .error_box");
     var directions_service = new google.maps.DirectionsService();
     var start = $("#start").val();
@@ -72,8 +63,11 @@ REMOVAL.removal_decider = ( function() {
       $("input#rooms").addClass("error").focus();
       $error_box.find("p").html("Bitte geben Sie die richtige Anzahl der R&#228;ume an").end().fadeIn("slow");
       return false;
-    } else { $("input#member, input#rooms").removeClass("error"); }
-    directions_service.route(route_request, function(response, status) {
+    } else { 
+      $("input#member, input#rooms").removeClass("error");
+      $(".own_removal").html("REEEEEEEECHNEEEE");
+    }
+    directions_service.route(route_request, function (response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
         $error_box.fadeOut();
         $(".error").removeClass("error");
@@ -116,7 +110,8 @@ REMOVAL.removal_decider = ( function() {
         var stop_area_price_sum = (parseInt(stop_area_price_array[0], 10) + parseInt(stop_area_price_array[1], 10));
         $("#stop_area_price").html(getFormatPrice(stop_area_price_sum));
         var stop_area_and = ( stop_area_region_start !== null && stop_area_region_end !== null ? " und " : "");
-        $("#info_stop_area_price i").html((stop_area_region_start !== null ? stop_area_region_start : "")+stop_area_and+(stop_area_region_end !== null ? stop_area_region_end : ""));
+        $("#info_stop_area_price i").html((stop_area_region_start !== null ? stop_area_region_start : "")+
+                                            stop_area_and+(stop_area_region_end !== null ? stop_area_region_end : ""));
         if (stop_area_price_sum === 0) { $("#info_stop_area_price").html("Erfahrungsgem&#228;&#223; keine HVZ f&#252;r diese Orte"); }
         
         var catering_price = parseFloat(getCateringPrice(configJson, removal_time));
@@ -147,7 +142,7 @@ REMOVAL.removal_decider = ( function() {
       }
     });
   }
-  function setRegion (route) {
+  function setRegion(route) {
     startLoc = route.start_address.split(",");
     if (startLoc.length > 1){
       if (startLoc.length > 2){
@@ -163,77 +158,78 @@ REMOVAL.removal_decider = ( function() {
     if (endLoc.length > 1) { endLoc = jQuery.trim(endLoc[endLoc.length -2].replace(/\d/g,"")); }
     else { endLoc = jQuery.trim(endLoc[0]); }
   }
-  function getJsonFile (url) {
+  function getJsonFile(url) {
     var temp = null;
     $.ajax({
         type: "GET",
         url: url,
         dataType: "json",
         async: false,
-        success: function(data){
+        success: function (data){
           temp = data;
         }
     });
-    return (temp);
+    return temp;
   }
-  function getOrigDistance (route){
+  function getOrigDistance(route){
     var temp = null;
     temp = route.distance.value;
     temp = parseInt(temp/1000, 10);
-    return(temp);
+    return temp;
   }
-  function getRemovalTime (configJson, route, rooms){
+  function getRemovalTime(configJson, route, rooms){
     var STATIC_drive_rest_time_in_sec = parseInt(configJson.drive_rest_time_in_sec, 10);
     var STATIC_shipping_time_for_max_3_rooms_in_sec = parseInt(configJson.shipping_time_for_max_3_rooms_in_sec, 10);//start and end 
     var STATIC_shipping_time_for_more_3_rooms_in_sec = parseInt(configJson.shipping_time_for_more_3_rooms_in_sec, 10);//start and end
     var STATIC_room_limit = parseInt(configJson.room_limit, 10);
     var temp = null;
     temp = route.duration.value;
-    temp =  ((temp+STATIC_drive_rest_time_in_sec+( rooms > STATIC_room_limit ? STATIC_shipping_time_for_more_3_rooms_in_sec : STATIC_shipping_time_for_max_3_rooms_in_sec))/60)/60;
+    temp =  ((temp+STATIC_drive_rest_time_in_sec+( rooms > STATIC_room_limit ?
+            STATIC_shipping_time_for_more_3_rooms_in_sec : STATIC_shipping_time_for_max_3_rooms_in_sec))/60)/60;
     temp = Math.round(temp);
-    return(temp);
+    return temp;
   }
-  function getLKWRentDistance (lkw_matrix_json, orig_distance) {
+  function getLKWRentDistance(lkw_matrix_json, orig_distance) {
     var km = [];
     var temp = null;
     var key = null;
-    $.each(lkw_matrix_json, function(index, elem) { km.push(index.substring(1, index.length)); });
-    $(km).each( function() {
+    $.each(lkw_matrix_json, function (index, elem) { km.push(index.substring(1, index.length)); });
+    $(km).each( function () {
       if (orig_distance < this) { 
         temp = this;
         return false;
       }
     });
     if (temp === null) { temp = "1000+"; }
-    return (temp);
+    return temp;
   }
-  function getNumBoxes (configJson) {
+  function getNumBoxes(configJson) {
     var STATIC_boxes_per_room = parseInt(configJson.boxes_per_room, 10);
     var STATIC_boxes_per_member = parseInt(configJson.boxes_per_member, 10);
-    return (rooms*STATIC_boxes_per_room + member*STATIC_boxes_per_member);
+    return rooms*STATIC_boxes_per_room + member*STATIC_boxes_per_member;
   }
-  function getPriceBoxes (configJson, num_boxes) {
+  function getPriceBoxes(configJson, num_boxes) {
     var STATIC_price_per_box = parseFloat(configJson.price_per_box);
-    return (num_boxes*STATIC_price_per_box);
+    return num_boxes*STATIC_price_per_box;
   }
-  function getLKWSize (configJson, num_boxes) {
+  function getLKWSize(configJson, num_boxes) {
     var STATIC_small_lkw_num_boxes = parseInt(configJson.small_lkw_num_boxes, 10);
-    return(num_boxes > STATIC_small_lkw_num_boxes ? "t7" : "t3");
+    return num_boxes > STATIC_small_lkw_num_boxes ? "t7" : "t3";
   }
-  function getLKWRent (lkw_matrix_json, lkw_rent_distance, lkw_size) {
+  function getLKWRent(lkw_matrix_json, lkw_rent_distance, lkw_size) {
     var temp = null;
     temp = lkw_matrix_json['k' + lkw_rent_distance].rent[lkw_size];
-    return (temp);
+    return temp;
   }
-  function getFuelPrice (configJson, orig_distance, lkw_size) {
+  function getFuelPrice(configJson, orig_distance, lkw_size) {
     var STATIC_fuel_price_liter = parseFloat(configJson.fuel_price_liter);
     var STATIC_average_fuel_consum_1_km_t3 = parseFloat(configJson.average_fuel_consum_1_km_t3);
     var STATIC_average_fuel_consum_1_km_t7 = parseFloat(configJson.average_fuel_consum_1_km_t7);
     if (orig_distance < 10) { orig_distance = 10; }
     var average_fuel = parseInt(orig_distance*(lkw_size === "t3" ? STATIC_average_fuel_consum_1_km_t3 : STATIC_average_fuel_consum_1_km_t7 ), 10);
-    return (average_fuel*STATIC_fuel_price_liter);
+    return average_fuel*STATIC_fuel_price_liter;
   }
-  function getStopAreaPrice (route, stop_area_matrix_json) {
+  function getStopAreaPrice(route, stop_area_matrix_json) {
     var temp  = [];
     var start_price;
     var end_price;
@@ -247,17 +243,17 @@ REMOVAL.removal_decider = ( function() {
     } else { end_price = 0; }
     temp.push(start_price);
     temp.push(end_price);
-    return (temp);
+    return temp;
   }
-  function getCateringPrice (configJson, removal_time) {
+  function getCateringPrice(configJson, removal_time) {
     var temp = null;
     var STATIC_helper = parseInt(configJson.helper, 10);
     var STATIC_cat_price_1_helper = parseFloat(configJson.cat_price_1_helper);
     var helper = STATIC_helper + member;
     temp = (removal_time)*(helper*STATIC_cat_price_1_helper);
-    return (temp);
+    return temp;
   }
-  function getFormatPrice (price) {
+  function getFormatPrice(price) {
     temp = parseInt(price * 100, 10);
     temp = temp / 100;
     temp = temp.toFixed(2);
@@ -265,10 +261,10 @@ REMOVAL.removal_decider = ( function() {
     while(temp.match(/^(\d+)(\d{3}\b)/)) {
       temp = temp.replace(/^(\d+)(\d{3}\b)/, RegExp.$1 + '.' + RegExp.$2);
     }
-    return (temp);
+    return temp;
   }
   return {
-    init: function(){
+    init: function () {
       return init();
     }
   };

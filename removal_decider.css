@@ -276,7 +276,7 @@
   overflow: hidden;
   width: 400px;
   margin: 0 auto;
-  height: 40px;
+  height: 30px;
   display: none;
 }
 .removal_decider .error h3 {
@@ -293,8 +293,12 @@
 }
 .removal_decider ul.ui-autocomplete li {
    border: 1px solid #7F9DB9;
-   padding: 5px;
 }
 .removal_decider ul.ui-autocomplete a {
   cursor: pointer;
+  display: block;
+  padding: 5px;
+}
+.removal_decider ul.ui-autocomplete a.ui-state-hover {
+  background-color: #A8B9CB;
 }

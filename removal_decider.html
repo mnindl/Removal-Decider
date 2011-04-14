@@ -5,10 +5,8 @@
     <meta name="keywords" content="Umzug" />
     <meta name="author" content="Michael Nindl" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link href="reset.css" type="text/css" rel="stylesheet"/>
+    <link href="reset_min.css" type="text/css" rel="stylesheet"/>
     <link href="removal_decider.css" type="text/css" rel="stylesheet"/>
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="removal_decider.js"></script>
     <title>Umzugs Entscheider</title>
   </head>
   <body class="removal_decider">
@@ -46,35 +44,37 @@
         <p>&nbsp;</p>
       </div>
       <div class="own_removal">
-        <h2>Umzug in Eigenregie</h2>
-        <p id="header_text_member"></p>
-        <p id="header_text_distance"></p>
-        <p>&nbsp;</p>
-        <p class="own_removal_val no_val">EUR</p>
-        <div class="clear">&nbsp;</div>
-        <p>LKW</p>
-        <p class="own_removal_val" id="lkw_rent">xxx</p>
-        <div class="clear">&nbsp;</div>
-        <small>Gr&#246;&#223;e: <i id="lkw_size">xxx</i> - &#248; Mietpreis bis <i id="lkw_rent_distance">xxx</i> km</small>
-        <p>Krafstoff</p>
-        <p class="own_removal_val" id="fuel_price">xxx</p>
-        <div class="clear">&nbsp;</div>
-        <small>Distanz: <i id="orig_distance">xxx</i> km - Verbrauch: ca.<i id="mileage">xxx</i>/100km</small>
-        <p>Halteverbotszonen</p>
-        <p class="own_removal_val" id="stop_area_price">xxx</p>
-        <div class="clear">&nbsp;</div>
-        <small id ="info_stop_area_price">Halteverbotszone f&#252;r <i>xxx</i></small>
-        <p>Kartons</p>
-        <p class="own_removal_val" id="price_boxes">xxx</p>
-        <div class="clear">&nbsp;</div>
-        <small id ="num_boxes">Anzahl der Kartons: <i>xxx</i></small>
-        <p>Verpflegung</p>
-        <p class="own_removal_val" id="catering_price">xxx</p>
-        <div class="clear">&nbsp;</div>
-        <small id ="info_catering_price">Verpflegung f&#252;r <i id="cat_member">xxx</i> Personen und f&#252;r <i id="cat_helper">xxx</i> Helfer</small>
-        <div id="sum">
-          <p>SUMME</p>
-          <p class="own_removal_val">EURO <span>xxx</span></p>
+        <div class="own_removal_data">
+          <h2>Umzug in Eigenregie</h2>
+          <p id="header_text_member"></p>
+          <p id="header_text_distance"></p>
+          <p>&nbsp;</p>
+          <p class="own_removal_val no_val">EUR</p>
+          <div class="clear">&nbsp;</div>
+          <p>LKW</p>
+          <p class="own_removal_val" id="lkw_rent">xxx</p>
+          <div class="clear">&nbsp;</div>
+          <small>Gr&#246;&#223;e: <i id="lkw_size">xxx</i> - &#248; Mietpreis bis <i id="lkw_rent_distance">xxx</i> km</small>
+          <p>Krafstoff</p>
+          <p class="own_removal_val" id="fuel_price">xxx</p>
+          <div class="clear">&nbsp;</div>
+          <small>Distanz: <i id="orig_distance">xxx</i> km - Verbrauch: ca.<i id="mileage">xxx</i>/100km</small>
+          <p>Halteverbotszonen</p>
+          <p class="own_removal_val" id="stop_area_price">xxx</p>
+          <div class="clear">&nbsp;</div>
+          <small id ="info_stop_area_price">Halteverbotszone f&#252;r <i>xxx</i></small>
+          <p>Kartons</p>
+          <p class="own_removal_val" id="price_boxes">xxx</p>
+          <div class="clear">&nbsp;</div>
+          <small id ="num_boxes">Anzahl der Kartons: <i>xxx</i></small>
+          <p>Verpflegung</p>
+          <p class="own_removal_val" id="catering_price">xxx</p>
+          <div class="clear">&nbsp;</div>
+          <small id ="info_catering_price">Verpflegung f&#252;r <i id="cat_member">xxx</i> Personen und f&#252;r <i id="cat_helper">xxx</i> Helfer</small>
+          <div id="sum">
+            <p>SUMME</p>
+            <p class="own_removal_val">EURO <span>xxx</span></p>
+          </div>
         </div>
       </div>
       <div class="company_removal">
@@ -111,5 +111,7 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="removal_decider.js"></script>
   </body>
 </html>
