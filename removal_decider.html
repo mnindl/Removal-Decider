@@ -6,7 +6,7 @@
     <meta name="author" content="Michael Nindl" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="reset_min.css" type="text/css" rel="stylesheet"/>
-    <link href="removal_decider.css" type="text/css" rel="stylesheet"/>
+    <link href="removal_decider_min.css" type="text/css" rel="stylesheet"/>
     <title>Umzugs Entscheider</title>
   </head>
   <body class="removal_decider">
@@ -26,11 +26,11 @@
           </div>
           <div class="member">
             <label for="member">Personen</label>
-            <input type="text" value="Anzahl der Personen" id="member" maxlength="2">
+            <input type="text" value="Anzahl" id="member" maxlength="2">
           </div>
           <div class="rooms">
             <label for="rooms">Zimmer</label>
-            <input type="text" value="Anzahl der Zimmer" id="rooms" maxlength="2">
+            <input type="text" value="Anzahl" id="rooms" maxlength="2">
           </div>
           <div class="submit">
             <a id="submit">
@@ -44,10 +44,15 @@
         <p>&nbsp;</p>
       </div>
       <div class="own_removal">
+        <div class="loading_animation">
+          <img src="images/loading-gif-animation.gif" alt="ani">
+        </div>
         <div class="own_removal_data">
           <h2>Umzug in Eigenregie</h2>
-          <p id="header_text_member"></p>
-          <p id="header_text_distance"></p>
+          <div class="header_text">
+            <p id="header_text_member"></p>
+            <p id="header_text_distance"></p>
+          </div>
           <p>&nbsp;</p>
           <p class="own_removal_val no_val">EUR</p>
           <div class="clear">&nbsp;</div>
@@ -58,7 +63,7 @@
           <p>Krafstoff</p>
           <p class="own_removal_val" id="fuel_price">xxx</p>
           <div class="clear">&nbsp;</div>
-          <small>Distanz: <i id="orig_distance">xxx</i> km - Verbrauch: ca.<i id="mileage">xxx</i>/100km</small>
+          <small>Distanz: <i id="orig_distance">xxx</i> km - Verbrauch: ca. <i id="mileage">xxx</i>/100km</small>
           <p>Halteverbotszonen</p>
           <p class="own_removal_val" id="stop_area_price">xxx</p>
           <div class="clear">&nbsp;</div>
@@ -78,7 +83,10 @@
         </div>
       </div>
       <div class="company_removal">
-        <div class="fake_datas hidden">
+        <div class="loading_animation">
+          <img src="images/loading-gif-animation.gif" alt="ani">
+        </div>
+        <div class="fake_datas">
           <small>Famillie Muster</small>
           <small id="fake_datas_add_street"></small>
           <small id="fake_datas_add_region"></small>
@@ -93,7 +101,7 @@
           </div>
           <div class="clear">&nbsp;</div>
         </div>
-        <div class="offer hidden">
+        <div class="offer">
           <p class="offer_text">Wir bieten Ihnen:</p>
           <ul>
             <li>guter Preis &#38; sicherer Transport</li>
@@ -112,6 +120,6 @@
       </div>
     </div>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="removal_decider.js"></script>
+    <script type="text/javascript" src="removal_decider_min.js"></script>
   </body>
 </html>

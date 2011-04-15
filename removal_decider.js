@@ -13,6 +13,7 @@ REMOVAL.removal_decider = ( function () {
   var stop_area_region_end = null;
   var company_removal_address_street = null;
   var company_removal_address_region = null;
+  var isCalc = false;
 
   function init() {
     var geocoder = new google.maps.Geocoder();
@@ -21,7 +22,15 @@ REMOVAL.removal_decider = ( function () {
     });
     $("#removal_form .submit").click(function (event) {
       event.preventDefault();
+      $(".own_removal_data").hide();
+      $(".removal_decider .offer").hide();
+      $(".removal_decider .fake_datas").hide();
+      $(".loading_animation").show();
       calculateRemoval();
+      window.setTimeout(function() {
+        $(".loading_animation").hide();
+        $(".own_removal_data").show();
+      }, 1000);
     });
     
     $(".address").autocomplete({
@@ -58,14 +67,15 @@ REMOVAL.removal_decider = ( function () {
     if ( isNaN(member) || member.length === 0 || member === 0) {
       $("input#member").addClass("error").focus();
       $error_box.find("p").html("Bitte geben Sie die richtige Anzahl der Personen an").end().fadeIn("slow");
+      setDefaultValues();
       return false;
     } else if ( isNaN(rooms) || rooms.length === 0 || rooms === 0) {
       $("input#rooms").addClass("error").focus();
       $error_box.find("p").html("Bitte geben Sie die richtige Anzahl der R&#228;ume an").end().fadeIn("slow");
+      setDefaultValues();
       return false;
     } else { 
       $("input#member, input#rooms").removeClass("error");
-      $(".own_removal").html("REEEEEEEECHNEEEE");
     }
     directions_service.route(route_request, function (response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
@@ -78,67 +88,58 @@ REMOVAL.removal_decider = ( function () {
         var configJson = getJsonFile("removal_decider_config.json");
         var lkw_matrix_json = getJsonFile("lkw_rent_prices.json");
         var stop_area_matrix_json = getJsonFile("stop_area_prices.json");
-        
         var orig_distance = getOrigDistance(route);
-        $("#orig_distance").html(orig_distance);
-        
         var removal_time = getRemovalTime(configJson, route, rooms);
-        
         var lkw_rent_distance = getLKWRentDistance(lkw_matrix_json, orig_distance);
-    
         var num_boxes = getNumBoxes(configJson);
-        $("#num_boxes i").html(num_boxes);
-        
         var price_boxes = parseFloat(getPriceBoxes(configJson, num_boxes));
-        $("#price_boxes").html(getFormatPrice(price_boxes));
-        
         var lkw_size = getLKWSize(configJson, num_boxes);
         var lkw_size_out = (lkw_size === "t7" ? "7,5t" : "3,5t" );
-        
-        $("#lkw_size").html(lkw_size_out);
-        $("#lkw_rent_distance").html(lkw_rent_distance.toString(10));
-        
         var lkw_rent = parseInt(getLKWRent(lkw_matrix_json, lkw_rent_distance, lkw_size), 10);
-        $("#lkw_rent").html(getFormatPrice(lkw_rent));
-  
         var fuel_price = parseFloat(getFuelPrice(configJson, orig_distance, lkw_size));
-        $("#fuel_price").html(getFormatPrice(fuel_price));
         var mileage = (lkw_size === "t7" ? "15l" : "10l");
-        $("#mileage").html(mileage);
-        
         var stop_area_price_array = getStopAreaPrice(route, stop_area_matrix_json);
         var stop_area_price_sum = (parseInt(stop_area_price_array[0], 10) + parseInt(stop_area_price_array[1], 10));
-        $("#stop_area_price").html(getFormatPrice(stop_area_price_sum));
         var stop_area_and = ( stop_area_region_start !== null && stop_area_region_end !== null ? " und " : "");
-        $("#info_stop_area_price i").html((stop_area_region_start !== null ? stop_area_region_start : "")+
-                                            stop_area_and+(stop_area_region_end !== null ? stop_area_region_end : ""));
-        if (stop_area_price_sum === 0) { $("#info_stop_area_price").html("Erfahrungsgem&#228;&#223; keine HVZ f&#252;r diese Orte"); }
-        
         var catering_price = parseFloat(getCateringPrice(configJson, removal_time));
-        $("#catering_price").html(getFormatPrice(catering_price));
-        
         var sum = price_boxes+lkw_rent+fuel_price+stop_area_price_sum+catering_price;
-        $("#sum .own_removal_val span").html(getFormatPrice(sum));
-        $("#info_catering_price #cat_member").html(member);
-        $("#info_catering_price #cat_helper").html(configJson.helper);
-        
         var word_person = (member > 1)? " Personen" : " Person";
         $("#header_text_member").html(member + word_person + " von "+startLoc+" nach "+endLoc);
         $("#header_text_distance").html("Strecke: "+orig_distance+ " km");
+        $("#orig_distance").html(orig_distance);
+        $("#num_boxes i").html(num_boxes);
+        $("#price_boxes").html(getFormatPrice(price_boxes));
+        $("#lkw_size").html(lkw_size_out);
+        $("#lkw_rent_distance").html(lkw_rent_distance.toString(10));
+        $("#lkw_rent").html(getFormatPrice(lkw_rent));
+        $("#fuel_price").html(getFormatPrice(fuel_price));
+        $("#mileage").html(mileage);
+        $("#stop_area_price").html(getFormatPrice(stop_area_price_sum));
+        $("#info_stop_area_price i").html((stop_area_region_start !== null ? stop_area_region_start : "")+
+                                            stop_area_and+(stop_area_region_end !== null ? stop_area_region_end : ""));
+        if (stop_area_price_sum === 0) { $("#info_stop_area_price").html("Erfahrungsgem&#228;&#223; keine HVZ f&#252;r diese Orte"); }
+        $("#catering_price").html(getFormatPrice(catering_price));
+        $("#sum .own_removal_val span").html(getFormatPrice(sum));
+        $("#info_catering_price #cat_member").html(member);
+        $("#info_catering_price #cat_helper").html(configJson.helper);
         
         var date = new Date();
         $("#fake_datas_offer_val_date").html(date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear());
         $("#fake_datas_add_street").html(company_removal_address_street);
         $("#fake_datas_add_region").html(company_removal_address_region);
         
-        $(".removal_decider .offer").removeClass("hidden");
-        $(".removal_decider .fake_datas").removeClass("hidden");
+        window.setTimeout(function() {
+          $(".removal_decider .offer").show();
+          $(".removal_decider .fake_datas").show();
+        }, 1000);
       } else if (status === google.maps.DirectionsStatus.NOT_FOUND) {
         $(".removal_decider .removal_decider_form").find("#start").addClass("error").focus().end().find("#end").addClass("error");
         $error_box.find("p").html("Geben Sie bitte einen g&#252;ltigen Startort und einen g&#252;ltigen Zielort ein.").end().fadeIn("slow");
+        setDefaultValues();
       } else {
         $(".removal_decider .removal_decider_form").find("#start").addClass("error").focus().end().find("#end").addClass("error");
         $error_box.find("p").html("Leider liefert Google Maps kein Ergebnis zu ihrer Routenanfrage").end().fadeIn("slow");
+        setDefaultValues();
       }
     });
   }
@@ -262,6 +263,24 @@ REMOVAL.removal_decider = ( function () {
       temp = temp.replace(/^(\d+)(\d{3}\b)/, RegExp.$1 + '.' + RegExp.$2);
     }
     return temp;
+  }
+  function setDefaultValues() {
+    $("#header_text_member").html("");
+    $("#header_text_distance").html("");
+    $("#orig_distance").html("xxx");
+    $("#num_boxes i").html("xxx");
+    $("#price_boxes").html("xxx");
+    $("#lkw_size").html("xxx");
+    $("#lkw_rent_distance").html("xxx");
+    $("#lkw_rent").html("xxx");
+    $("#fuel_price").html("xxx");
+    $("#mileage").html("xxx");
+    $("#stop_area_price").html("xxx");
+    $("#info_stop_area_price i").html("xxx");
+    $("#catering_price").html("xxx");
+    $("#sum .own_removal_val span").html("xxx");
+    $("#info_catering_price #cat_member").html("xxx");
+    $("#info_catering_price #cat_helper").html("xxx");
   }
   return {
     init: function () {
