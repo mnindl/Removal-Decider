@@ -84,8 +84,7 @@
 .removal_decider .removal_decider_form .submit {
   margin: 15px 0 0 48px;
 }
-.removal_decider .submit a,
-.removal_decider .company_removal_link a {
+.removal_decider .submit a {
   background: url("images/sp_expose.png") no-repeat scroll 100% -789px transparent;
   font-style: normal;
   font-weight: bold;
@@ -93,13 +92,23 @@
   text-decoration:none !important;
   cursor: pointer;
 }
-.removal_decider .submit a:hover,
-.removal_decider .company_removal_link a:hover {
+.removal_decider .company_removal_link a {
+  background: url("images/sp_expose.png") no-repeat scroll 100% -1323px transparent;
+  font-style: normal;
+  font-weight: bold;
+  display: inline-block;
+  text-decoration:none !important;
+  cursor: pointer;
+}
+.removal_decider .submit a:hover {
   background-position: 100% -820px;
   color: #FFFFFF;
 }
-.removal_decider .submit a span,
-.removal_decider .company_removal_link a span {
+.removal_decider .company_removal_link a:hover {
+  background-position: 100% -1356px;
+  color: #FFFFFF;
+}
+.removal_decider .submit a span {
   font-size: 1.2em;
   background: url("images/sp_expose.png") no-repeat scroll 0 -727px transparent;
   padding:0 15px 2px 15px;
@@ -110,12 +119,14 @@
   color: #ffffff;
   font-weight: bold;
 }
-.removal_decider .submit a span:hover,
-.removal_decider .company_removal_link a span:hover {
+.removal_decider .submit a span:hover { 
   background-position: 0 -758px;
   text-shadow: none;
 }
-
+.removal_decider .company_removal_link a span:hover {
+  background-position: 0 -1284px;
+  text-shadow: none;
+}
 .removal_decider .own_removal, 
 .removal_decider .company_removal {
   float: left;
@@ -255,17 +266,25 @@
   padding-bottom: 2px;
 }
 .removal_decider .company_removal .company_removal_link {
-  margin: 7px 20px 0 125px;
+  margin: 7px 20px 0 75px;
   padding: 0 0 7px 9px;
   border-bottom: 2px solid #B1B1B1;
 }
 .removal_decider .company_removal .company_removal_link_line {
   height: 4px;
-  margin: 0 20px 0 125px;
+  margin: 0 20px 0 75px;
   padding: 0; 
 }
 .removal_decider .company_removal_link a span {
-  font-size: 0.79em;
+  font-size: 1em;
+  background:url("images/sp_expose.png") no-repeat scroll 0 -1251px transparent;
+  color:#FFFFFF;
+  display:inline-block;
+  font-weight:bold;
+  line-height:19px !important;
+  margin-left:-2px;
+  padding: 3px 20px;
+  text-shadow:-1px -1px 0 #FF7500, 1px -1px 0 #FF7500, 0 -1px 0 #FF7500, 0 1px 1px #FF7500;
 }
 .removal_decider .error_box {
   -webkit-border-radius: 4px 4px;
